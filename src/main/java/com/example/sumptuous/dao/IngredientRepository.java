@@ -14,4 +14,6 @@ public interface IngredientRepository extends JpaRepository<Ingredient, Long> {
     List<Ingredient> searchByName(@Param("name") String name);
 
     List<Ingredient> findAll();
+
+    //Ingredient save(Ingredient ingredient);
 }

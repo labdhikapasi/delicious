@@ -1,5 +1,6 @@
 package com.example.sumptuous.dto;
 
+import com.example.sumptuous.bean.Ingredient;
 import com.example.sumptuous.bean.Recipe;
 import org.json.JSONArray;
 
@@ -35,5 +36,19 @@ public class DtoConversion {
         }
         recipeDto.setIngredientList(ingredientList);
         return recipeDto;
+    }
+
+    public static Ingredient ingredientDtoToIngredient(IngredientDto ingredientDto){
+        Ingredient ingredient = new Ingredient();
+        ingredient.setName(ingredientDto.getName());
+        ingredient.setId(ingredientDto.getId());
+        return ingredient;
+    }
+
+    public static IngredientDto ingredientToIngredientDto(Ingredient ingredient){
+        IngredientDto ingredientDto = new IngredientDto();
+        ingredientDto.setName(ingredient.getName());
+        ingredientDto.setId(ingredient.getId());
+        return ingredientDto;
     }
 }
