@@ -2,15 +2,12 @@ package com.example.sumptuous.dto;
 
 import com.example.sumptuous.bean.Ingredient;
 import com.example.sumptuous.bean.Recipe;
-import com.example.sumptuous.bean.RecipeIngredient;
 import com.example.sumptuous.enums.DishType;
 import com.example.sumptuous.enums.MealType;
 import org.json.JSONArray;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public class DtoConversion {
     public static RecipeDto convertRecipeToRecipeDto(Recipe recipe){

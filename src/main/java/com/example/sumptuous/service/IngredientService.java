@@ -1,7 +1,6 @@
 package com.example.sumptuous.service;
 
 import com.example.sumptuous.bean.Ingredient;
-import com.example.sumptuous.bean.User;
 import com.example.sumptuous.dao.IngredientRepository;
 import com.example.sumptuous.dto.DtoConversion;
 import com.example.sumptuous.dto.IngredientDto;

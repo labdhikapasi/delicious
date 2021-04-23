@@ -1,6 +1,5 @@
 package com.example.sumptuous.service;
 
-
 import com.example.sumptuous.bean.User;
 import com.example.sumptuous.dao.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;

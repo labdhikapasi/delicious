@@ -3,7 +3,6 @@ package com.example.sumptuous.service;
 import com.example.sumptuous.bean.Ingredient;
 import com.example.sumptuous.bean.Recipe;
 import com.example.sumptuous.bean.RecipeIngredient;
-import com.example.sumptuous.bean.RecipeIngredientKey;
 import com.example.sumptuous.dao.RecipeIngredientRepository;
 import com.example.sumptuous.dao.RecipeRepository;
 import com.example.sumptuous.dto.DtoConversion;

@@ -1,7 +1,6 @@
 package com.example.sumptuous.controller;
 
 import com.example.sumptuous.bean.Ingredient;
-import com.example.sumptuous.bean.User;
 import com.example.sumptuous.dto.IngredientDto;
 import com.example.sumptuous.service.IngredientService;
 import org.springframework.beans.factory.annotation.Autowired;
