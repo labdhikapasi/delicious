@@ -4,6 +4,7 @@ import com.example.sumptuous.bean.Ingredient;
 import com.example.sumptuous.bean.Recipe;
 import com.example.sumptuous.bean.User;
 import com.example.sumptuous.dto.RecipeDto;
+import com.example.sumptuous.dto.RecipeRequestDto;
 import com.example.sumptuous.service.LoginService;
 import com.example.sumptuous.service.RecipeService;
 import org.json.JSONArray;
@@ -24,7 +25,11 @@ public class RecipeController {
     private RecipeService recipeService;
 
     @PostMapping("/recipes")
-    public List<RecipeDto> registerUser(@RequestBody List<Ingredient> ingredients) {
+    public List<RecipeDto> searchRecipes(@RequestBody List<Ingredient> ingredients) {
         return recipeService.searchRecipes(ingredients);
+    }
+    @PostMapping("/addRecipe")
+    public RecipeDto addRecipe(@RequestBody RecipeRequestDto recipeRequestDto) {
+        return recipeService.addRecipe(recipeRequestDto);
     }
 }

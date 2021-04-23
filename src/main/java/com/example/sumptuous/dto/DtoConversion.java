@@ -2,10 +2,15 @@ package com.example.sumptuous.dto;
 
 import com.example.sumptuous.bean.Ingredient;
 import com.example.sumptuous.bean.Recipe;
+import com.example.sumptuous.bean.RecipeIngredient;
+import com.example.sumptuous.enums.DishType;
+import com.example.sumptuous.enums.MealType;
 import org.json.JSONArray;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class DtoConversion {
     public static RecipeDto convertRecipeToRecipeDto(Recipe recipe){
@@ -26,7 +31,9 @@ public class DtoConversion {
             //Adding each element of JSON array into ArrayList
             listData.add(jsonArray.get(i).toString());
         }
+
         recipeDto.setDirections(listData);
+
         JSONArray jsonArrayList = new JSONArray(recipe.getIngredientsList());
         List<String> ingredientList = new ArrayList<>();
         for (int i=0;i<jsonArrayList.length();i++) {
@@ -50,5 +57,19 @@ public class DtoConversion {
         ingredientDto.setName(ingredient.getName());
         ingredientDto.setId(ingredient.getId());
         return ingredientDto;
+    }
+    public static Recipe recipeRequestDtoToRecipe(RecipeRequestDto recipeRequestDto){
+        Recipe recipe = new Recipe();
+        recipe.setName(recipeRequestDto.getName());
+        recipe.setDishType(DishType.valueOf(recipeRequestDto.getDishType()));
+        recipe.setMealType(MealType.valueOf(recipeRequestDto.getMealType()));
+        recipe.setCookingTime(recipeRequestDto.getCookingTime());
+        recipe.setImageUrl(recipeRequestDto.getImageUrl());
+        recipe.setServes(recipeRequestDto.getServes());
+        recipe.setVideoLink(recipeRequestDto.getVideoLink());
+        recipe.setDirections(new JSONArray(recipeRequestDto.getDirections()).toString());
+        recipe.setIngredientsList(new JSONArray(recipeRequestDto.getIngredientList()).toString());
+
+        return recipe;
     }
 }

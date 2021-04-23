@@ -11,7 +11,7 @@ public class RecipeIngredientKey implements Serializable {
     private long recipeId;
 
     @Column(name = "ingredient_id")
-    private long ingredientId;
+    private Long ingredientId;
 
     public RecipeIngredientKey() {
     }
@@ -24,11 +24,11 @@ public class RecipeIngredientKey implements Serializable {
         this.recipeId = recipeId;
     }
 
-    public long getIngredientId() {
+    public Long getIngredientId() {
         return ingredientId;
     }
 
-    public void setIngredientId(long ingredientId) {
+    public void setIngredientId(Long ingredientId) {
         this.ingredientId = ingredientId;
     }
 

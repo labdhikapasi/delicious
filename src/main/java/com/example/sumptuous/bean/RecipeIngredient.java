@@ -10,19 +10,30 @@ import javax.persistence.*;
 @Table(name = "recipe_ingredient")
 public class RecipeIngredient {
 
-    @EmbeddedId
-    private RecipeIngredientKey id;
+    private @Id @GeneratedValue Long id;
+    /*@EmbeddedId
+    private RecipeIngredientKey id;*/
 
-    @JsonIgnoreProperties("recipeIngredients")
+    /*@JsonIgnoreProperties("recipeIngredients")
     @ManyToOne
     @MapsId("recipeId")
     @JoinColumn(name = "recipe_id")
-    private Recipe recipe;
+    private Recipe recipe;*/
 
     @JsonIgnoreProperties("recipeIngredients")
     @ManyToOne
+    @PrimaryKeyJoinColumn(name = "recipe_id", referencedColumnName = "id")
+    private Recipe recipe;
+
+    /*@JsonIgnoreProperties("recipeIngredients")
+    @ManyToOne
     @MapsId("ingredientId")
     @JoinColumn(name = "ingredient_id")
+    private Ingredient ingredient;*/
+
+    @JsonIgnoreProperties("recipeIngredients")
+    @ManyToOne
+    @PrimaryKeyJoinColumn(name = "ingredient_id", referencedColumnName = "id")
     private Ingredient ingredient;
 
     private String quantity;
@@ -34,11 +45,11 @@ public class RecipeIngredient {
     public RecipeIngredient() {
     }
 
-    public RecipeIngredientKey getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(RecipeIngredientKey id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
