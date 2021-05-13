@@ -7,6 +7,7 @@ import com.example.sumptuous.enums.MealType;
 import org.json.JSONArray;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class DtoConversion {
@@ -58,14 +59,14 @@ public class DtoConversion {
     public static Recipe recipeRequestDtoToRecipe(RecipeRequestDto recipeRequestDto){
         Recipe recipe = new Recipe();
         recipe.setName(recipeRequestDto.getName());
-        recipe.setDishType(DishType.valueOf(recipeRequestDto.getDishType()));
-        recipe.setMealType(MealType.valueOf(recipeRequestDto.getMealType()));
+        recipe.setDishType(recipeRequestDto.getDishType().equals("") ? null : DishType.valueOf(recipeRequestDto.getDishType()));
+        recipe.setMealType(recipeRequestDto.getMealType().equals("") ? null : MealType.valueOf(recipeRequestDto.getMealType()));
         recipe.setCookingTime(recipeRequestDto.getCookingTime());
         recipe.setImageUrl(recipeRequestDto.getImageUrl());
         recipe.setServes(recipeRequestDto.getServes());
         recipe.setVideoLink(recipeRequestDto.getVideoLink());
-        recipe.setDirections(new JSONArray(recipeRequestDto.getDirections()).toString());
-        recipe.setIngredientsList(new JSONArray(recipeRequestDto.getIngredientList()).toString());
+        recipe.setDirections(new JSONArray(Arrays.asList(recipeRequestDto.getDirections().split("\n"))).toString());
+        recipe.setIngredientsList(new JSONArray(Arrays.asList(recipeRequestDto.getIngredientsList().split("\n"))).toString());
 
         return recipe;
     }

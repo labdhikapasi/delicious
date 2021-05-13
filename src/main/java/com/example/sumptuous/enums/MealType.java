@@ -1,7 +1,7 @@
 package com.example.sumptuous.enums;
 
 public enum MealType {
-    BreakFast,
+    Breakfast,
     Lunch,
     Snacks,
     Dinner,

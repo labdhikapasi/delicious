@@ -19,6 +19,7 @@ public class RecipeDto {
     private int serves;
     private String imageUrl;
     private List<String> ingredientList;
+    private List<IngredientDto> ingredientDtos;
     public long getId() {
         return id;
     }
@@ -107,5 +108,13 @@ public class RecipeDto {
 
     public void setIngredientList(List<String> ingredientList) {
         this.ingredientList = ingredientList;
+    }
+
+    public List<IngredientDto> getIngredientDtos() {
+        return ingredientDtos;
+    }
+
+    public void setIngredientDtos(List<IngredientDto> ingredientDtos) {
+        this.ingredientDtos = ingredientDtos;
     }
 }

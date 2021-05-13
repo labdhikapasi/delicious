@@ -5,10 +5,7 @@ import com.example.sumptuous.bean.Recipe;
 import com.example.sumptuous.bean.RecipeIngredient;
 import com.example.sumptuous.dao.RecipeIngredientRepository;
 import com.example.sumptuous.dao.RecipeRepository;
-import com.example.sumptuous.dto.DtoConversion;
-import com.example.sumptuous.dto.IngredientDto;
-import com.example.sumptuous.dto.RecipeDto;
-import com.example.sumptuous.dto.RecipeRequestDto;
+import com.example.sumptuous.dto.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,15 +20,53 @@ public class RecipeService {
     @Autowired
     private RecipeIngredientRepository recipeIngredientRepository;
 
-    public List<RecipeDto> searchRecipes(List<Ingredient> ingredients){
-
-        List<Recipe> recipes = recipeRepository.findByIngredientPattern(makeIngredientsPattern(ingredients));
-        System.out.println("directions ----- "+recipes.get(0).getDirections());
+    public RecipeResponseUserDto searchRecipes(RecipeRequestUserDto recipeRequestUserDto){
+        RecipeResponseUserDto recipeResponseUserDto = new RecipeResponseUserDto();
+        List<Ingredient> ingredients = new ArrayList<>();
+        String dishType = recipeRequestUserDto.getDishType();
+        String mealType = recipeRequestUserDto.getMealType();
+        for(IngredientDto ingredientDto : recipeRequestUserDto.getIngredientDtos()){
+            ingredients.add(DtoConversion.ingredientDtoToIngredient(ingredientDto));
+        }
+        String ingredientPattern = makeIngredientsPattern(ingredients);
+        List<Recipe> recipes = recipeRepository.searchByIngredientPatternAndMealTypeAndDishType(ingredientPattern,mealType,dishType);
         List<RecipeDto> recipeDtos = new ArrayList<>();
         for(Recipe recipe : recipes){
             recipeDtos.add(DtoConversion.convertRecipeToRecipeDto(recipe));
         }
-        return recipeDtos;
+        recipeResponseUserDto.setRecipeDtos(recipeDtos);
+        if(recipeRequestUserDto.getChecked()){
+
+            List<RecipeDto> otherRecipeDtos = new ArrayList<>();
+            List<Recipe> otherRecipes = recipeRepository.searchByNotIngredientPatternAndMealTypeAndDishType(ingredientPattern,mealType,dishType);
+
+            for(Recipe recipe : otherRecipes){
+
+                List<Ingredient> currentIngredients = new ArrayList<>();
+                for(RecipeIngredient recipeIngredient : recipe.getRecipeIngredients()){
+                    currentIngredients.add(recipeIngredient.getIngredient());
+                }
+                if(currentIngredients.containsAll(ingredients)){
+
+                    RecipeDto currentRecipeDto = DtoConversion.convertRecipeToRecipeDto(recipe);
+                    List<IngredientDto> remainingIngredientDtos = new ArrayList<>();
+                    currentIngredients.removeAll(ingredients);
+                    for(Ingredient ingredient : currentIngredients){
+                        remainingIngredientDtos.add(DtoConversion.ingredientToIngredientDto(ingredient));
+                    }
+                    currentRecipeDto.setIngredientDtos(remainingIngredientDtos);
+                    otherRecipeDtos.add(currentRecipeDto);
+                }
+            }
+
+            recipeResponseUserDto.setOtherRecipeDtos(otherRecipeDtos);
+
+        }
+
+        //System.out.println("directions ----- "+recipes.get(0).getDirections());
+
+
+        return recipeResponseUserDto;
     }
 
     public RecipeDto addRecipe(RecipeRequestDto recipeRequestDto){
@@ -71,6 +106,17 @@ public class RecipeService {
             sb.append(id);
             sb.append("|");
         }
+        System.out.println("ingredient pattern "+sb.toString());
         return sb.toString();
+    }
+
+    public Boolean findRecipeByName(String name){
+        Recipe recipe = recipeRepository.findByName(name);
+        if(recipe != null){
+            return true;
+        }
+        else{
+            return false;
+        }
     }
 }

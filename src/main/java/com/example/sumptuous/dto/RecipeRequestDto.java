@@ -5,14 +5,14 @@ import java.util.List;
 public class RecipeRequestDto {
 
     private String name;
-    private List<String> directions;
+    private String directions;
     private String videoLink;
     private int cookingTime;
     private String dishType;
     private String mealType;
     private int serves;
     private String imageUrl;
-    private List<String> ingredientList;
+    private String ingredientsList;
     private List<IngredientDto> ingredientDtos;
 
     public String getName() {
@@ -23,11 +23,11 @@ public class RecipeRequestDto {
         this.name = name;
     }
 
-    public List<String> getDirections() {
+    public String getDirections() {
         return directions;
     }
 
-    public void setDirections(List<String> directions) {
+    public void setDirections(String directions) {
         this.directions = directions;
     }
 
@@ -79,12 +79,12 @@ public class RecipeRequestDto {
         this.imageUrl = imageUrl;
     }
 
-    public List<String> getIngredientList() {
-        return ingredientList;
+    public String getIngredientsList() {
+        return ingredientsList;
     }
 
-    public void setIngredientList(List<String> ingredientList) {
-        this.ingredientList = ingredientList;
+    public void setIngredientsList(String ingredientsList) {
+        this.ingredientsList = ingredientsList;
     }
 
     public List<IngredientDto> getIngredientDtos() {
@@ -93,5 +93,21 @@ public class RecipeRequestDto {
 
     public void setIngredientDtos(List<IngredientDto> ingredientDtos) {
         this.ingredientDtos = ingredientDtos;
+    }
+
+    @Override
+    public String toString() {
+        return "RecipeRequestDto{" +
+                "name='" + name + '\'' +
+                ", directions='" + directions + '\'' +
+                ", videoLink='" + videoLink + '\'' +
+                ", cookingTime=" + cookingTime +
+                ", dishType='" + dishType + '\'' +
+                ", mealType='" + mealType + '\'' +
+                ", serves=" + serves +
+                ", imageUrl='" + imageUrl + '\'' +
+                ", ingredientsList='" + ingredientsList + '\'' +
+                ", ingredientDtos=" + ingredientDtos +
+                '}';
     }
 }
