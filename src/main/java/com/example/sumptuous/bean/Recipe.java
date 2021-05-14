@@ -33,13 +33,13 @@ public class Recipe {
     @Column(name = "avg_rating")
     private int avgRating = 0;
 
-    @Enumerated(EnumType.STRING)
+    //@Enumerated(EnumType.STRING)
     @Column(name = "dish_type")
-    private DishType dishType;
+    private String dishType;
 
-    @Enumerated(EnumType.STRING)
+    //@Enumerated(EnumType.STRING)
     @Column(name = "meal_type")
-    private MealType mealType;
+    private String mealType;
 
     @Column(name = "ingredients_list", columnDefinition = "json")
     private String ingredientsList;
@@ -108,22 +108,21 @@ public class Recipe {
         this.avgRating = avgRating;
     }
 
-    public DishType getDishType() {
+    public String getDishType() {
         return dishType;
     }
 
-    public void setDishType(DishType dishType) {
+    public void setDishType(String dishType) {
         this.dishType = dishType;
     }
 
-    public MealType getMealType() {
+    public String getMealType() {
         return mealType;
     }
 
-    public void setMealType(MealType mealType) {
+    public void setMealType(String mealType) {
         this.mealType = mealType;
     }
-
 
     public int getServes() {
         return serves;

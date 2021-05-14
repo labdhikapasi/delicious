@@ -6,7 +6,11 @@ public class RecipeRequestUserDto {
     private List<IngredientDto> ingredientDtos;
     private String mealType;
     private String dishType;
+    private String name;
+    private Integer cookingTime;
     private Boolean checked;
+
+
 
     public List<IngredientDto> getIngredientDtos() {
         return ingredientDtos;
@@ -32,6 +36,22 @@ public class RecipeRequestUserDto {
         this.dishType = dishType;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Integer getCookingTime() {
+        return cookingTime;
+    }
+
+    public void setCookingTime(Integer cookingTime) {
+        this.cookingTime = cookingTime;
+    }
+
     public Boolean getChecked() {
         return checked;
     }
@@ -46,6 +66,8 @@ public class RecipeRequestUserDto {
                 "ingredientDtos=" + ingredientDtos +
                 ", mealType='" + mealType + '\'' +
                 ", dishType='" + dishType + '\'' +
+                ", name='" + name + '\'' +
+                ", cookingTime=" + cookingTime +
                 ", checked=" + checked +
                 '}';
     }

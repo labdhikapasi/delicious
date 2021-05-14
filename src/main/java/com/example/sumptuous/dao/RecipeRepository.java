@@ -17,4 +17,10 @@ public interface RecipeRepository extends JpaRepository<Recipe, Long> {
     @Query("select r from Recipe r where r.ingredientPattern <> :ingredientPattern and r.mealType like %:mealType and r.dishType like %:dishType")
     List<Recipe> searchByNotIngredientPatternAndMealTypeAndDishType(@Param("ingredientPattern") String ingredientPattern, @Param("mealType") String mealType, @Param("dishType") String dishType);
 
+    @Query("select r from Recipe r where r.mealType like %:mealType and r.dishType like %:dishType and r.name like %:name% and r.cookingTime = :cookingTime")
+    List<Recipe> searchByMealTypeAndDishTypeAndNameAndCookingTime(@Param("mealType") String mealType,@Param("dishType") String dishType, @Param("name") String name, @Param("cookingTime") Integer cookingTime);
+
+    @Query("select r from Recipe r where r.mealType like %:mealType and r.dishType like %:dishType and r.name like %:name%")
+    List<Recipe> searchByMealTypeAndDishTypeAndName(@Param("mealType") String mealType,@Param("dishType") String dishType, @Param("name") String name);
+
 }

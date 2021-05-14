@@ -59,8 +59,10 @@ public class DtoConversion {
     public static Recipe recipeRequestDtoToRecipe(RecipeRequestDto recipeRequestDto){
         Recipe recipe = new Recipe();
         recipe.setName(recipeRequestDto.getName());
-        recipe.setDishType(recipeRequestDto.getDishType().equals("") ? null : DishType.valueOf(recipeRequestDto.getDishType()));
-        recipe.setMealType(recipeRequestDto.getMealType().equals("") ? null : MealType.valueOf(recipeRequestDto.getMealType()));
+        //recipe.setDishType(recipeRequestDto.getDishType().equals("") ? null : DishType.valueOf(recipeRequestDto.getDishType()));
+        //recipe.setMealType(recipeRequestDto.getMealType().equals("") ? null : MealType.valueOf(recipeRequestDto.getMealType()));
+        recipe.setDishType(recipeRequestDto.getDishType());
+        recipe.setMealType(recipeRequestDto.getMealType());
         recipe.setCookingTime(recipeRequestDto.getCookingTime());
         recipe.setImageUrl(recipeRequestDto.getImageUrl());
         recipe.setServes(recipeRequestDto.getServes());
