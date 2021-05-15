@@ -36,4 +36,14 @@ public class IngredientService {
         return DtoConversion.ingredientToIngredientDto(ingredient);
     }
 
+    public Boolean checkIngredientByName(String name){
+        Ingredient ingredient = ingredientRepository.findByName(name);
+        if(null != ingredient){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
 }

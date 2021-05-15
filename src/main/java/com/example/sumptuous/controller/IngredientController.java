@@ -15,16 +15,20 @@ public class IngredientController {
     @Autowired
     private IngredientService ingredientService;
 
-    @PostMapping("/ingredients")
+    /*@PostMapping("/ingredients")
     public List<Ingredient> searchIngredients(@RequestBody Ingredient ingredient){
         return ingredientService.searchIngredients(ingredient.getName());
+    }*/
+    @GetMapping("/ingredient")
+    public Boolean checkIngredientByName(@RequestParam String name){
+        return ingredientService.checkIngredientByName(name);
     }
     @GetMapping("/ingredients")
     public List<IngredientDto> getIngredients(){
         return ingredientService.getIngredients();
     }
 
-    @PostMapping("/addIngredient")
+    @PostMapping("/ingredient")
     public IngredientDto addIngredient(@RequestBody IngredientDto ingredientDto){
         return ingredientService.addIngredient(ingredientDto);
     }
