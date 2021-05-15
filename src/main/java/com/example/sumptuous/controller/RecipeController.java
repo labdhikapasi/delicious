@@ -1,6 +1,7 @@
 package com.example.sumptuous.controller;
 
 import com.example.sumptuous.bean.Ingredient;
+import com.example.sumptuous.bean.Recipe;
 import com.example.sumptuous.dto.RecipeDto;
 import com.example.sumptuous.dto.RecipeRequestDto;
 import com.example.sumptuous.dto.RecipeRequestUserDto;
@@ -34,5 +35,18 @@ public class RecipeController {
     public Boolean findRecipeByName(@RequestParam String name){
         System.out.println("recipe name : "+name);
         return recipeService.findRecipeByName(name);
+    }
+
+    @GetMapping("/approveRecipe")
+    public Boolean approveRecipe(@RequestParam Long id){
+        return recipeService.approveRecipe(id);
+    }
+    @GetMapping("/unApprovedRecipes")
+    public List<RecipeDto> approveRecipe(){
+        return recipeService.getUnApprovedRecipes();
+    }
+    @GetMapping("/rejectRecipe")
+    public Boolean rejectRecipe(@RequestParam Long id){
+        return recipeService.rejectRecipe(id);
     }
 }

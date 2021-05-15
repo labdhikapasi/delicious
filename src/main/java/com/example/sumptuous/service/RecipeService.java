@@ -3,8 +3,10 @@ package com.example.sumptuous.service;
 import com.example.sumptuous.bean.Ingredient;
 import com.example.sumptuous.bean.Recipe;
 import com.example.sumptuous.bean.RecipeIngredient;
+import com.example.sumptuous.bean.User;
 import com.example.sumptuous.dao.RecipeIngredientRepository;
 import com.example.sumptuous.dao.RecipeRepository;
+import com.example.sumptuous.dao.UserRepository;
 import com.example.sumptuous.dto.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,6 +21,9 @@ public class RecipeService {
 
     @Autowired
     private RecipeIngredientRepository recipeIngredientRepository;
+
+    @Autowired
+    private UserRepository userRepository;
 
     public RecipeResponseUserDto searchRecipes(RecipeRequestUserDto recipeRequestUserDto){
         RecipeResponseUserDto recipeResponseUserDto = new RecipeResponseUserDto();
@@ -93,7 +98,16 @@ public class RecipeService {
     }
 
     public RecipeDto addRecipe(RecipeRequestDto recipeRequestDto){
+        Optional<User> optionalUser = userRepository.findById(recipeRequestDto.getUserId());
+        User user = optionalUser.get();
         Recipe recipe = DtoConversion.recipeRequestDtoToRecipe(recipeRequestDto);
+        if(user.getId()==1){
+            recipe.setApproved(1);
+        }else{
+            recipe.setApproved(0);
+        }
+        recipe.setDeleted(0);
+        recipe.setCreatedBy(user);
         recipeRepository.save(recipe);
         Set<RecipeIngredient> recipeIngredients = new HashSet<RecipeIngredient>();
         List<Ingredient> ingredients = new ArrayList<>();
@@ -141,5 +155,39 @@ public class RecipeService {
         else{
             return false;
         }
+    }
+
+    public Boolean approveRecipe(Long id){
+        Optional<Recipe> optionalRecipe = recipeRepository.findById(id);
+        Recipe recipe = optionalRecipe.get();
+        if(recipe != null){
+            recipe.setApproved(1);
+            recipeRepository.save(recipe);
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public Boolean rejectRecipe(Long id){
+        Optional<Recipe> optionalRecipe = recipeRepository.findById(id);
+        Recipe recipe = optionalRecipe.get();
+        if(recipe != null){
+            recipe.setApproved(0);
+            recipe.setDeleted(1);
+            recipeRepository.save(recipe);
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public List<RecipeDto> getUnApprovedRecipes(){
+        List<RecipeDto> recipeDtos = new ArrayList<>();
+        List<Recipe> recipes = recipeRepository.findByApprovedAndDeleted(0,0);
+        for(Recipe recipe : recipes){
+            recipeDtos.add(DtoConversion.convertRecipeToRecipeDto(recipe));
+        }
+        return recipeDtos;
     }
 }

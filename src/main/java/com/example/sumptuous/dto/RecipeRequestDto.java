@@ -14,6 +14,7 @@ public class RecipeRequestDto {
     private String imageUrl;
     private String ingredientsList;
     private List<IngredientDto> ingredientDtos;
+    private Long userId;
 
     public String getName() {
         return name;
@@ -93,6 +94,14 @@ public class RecipeRequestDto {
 
     public void setIngredientDtos(List<IngredientDto> ingredientDtos) {
         this.ingredientDtos = ingredientDtos;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     @Override

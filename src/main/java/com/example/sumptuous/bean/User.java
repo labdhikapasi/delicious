@@ -3,6 +3,7 @@ package com.example.sumptuous.bean;
 import com.example.sumptuous.enums.Role;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "user")
@@ -33,6 +34,12 @@ public class User {
     @Enumerated(EnumType.STRING)
     @Column(name = "role")
     private Role role;
+
+    @OneToMany(mappedBy = "createdBy")
+    private List<Recipe> createdRecipes;
+
+    @OneToMany(mappedBy = "updatedBy")
+    private List<Recipe> updatedRecipes;
 
     public User() {
     }
@@ -102,6 +109,22 @@ public class User {
         this.role = role;
     }
 
+    public List<Recipe> getCreatedRecipes() {
+        return createdRecipes;
+    }
+
+    public void setCreatedRecipes(List<Recipe> createdRecipes) {
+        this.createdRecipes = createdRecipes;
+    }
+
+    public List<Recipe> getUpdatedRecipes() {
+        return updatedRecipes;
+    }
+
+    public void setUpdatedRecipes(List<Recipe> updatedRecipes) {
+        this.updatedRecipes = updatedRecipes;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -113,6 +136,8 @@ public class User {
                 ", emailId='" + emailId + '\'' +
                 ", password='" + password + '\'' +
                 ", role=" + role +
+                ", createdRecipes=" + createdRecipes +
+                ", updatedRecipes=" + updatedRecipes +
                 '}';
     }
 }

@@ -56,6 +56,18 @@ public class Recipe {
     @Column(name = "ingredient_pattern")
     private String ingredientPattern;
 
+    @ManyToOne
+    @JoinColumn(name = "created_by", referencedColumnName = "id", nullable = false)
+    private User createdBy;
+
+    @ManyToOne
+    @JoinColumn(name = "update_by", referencedColumnName = "id")
+    private User updatedBy;
+
+    private int approved;
+
+    private int deleted;
+
     public Recipe() {
     }
 
@@ -164,6 +176,38 @@ public class Recipe {
         this.ingredientsList = ingredientsList;
     }
 
+    public User getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(User createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public User getUpdatedBy() {
+        return updatedBy;
+    }
+
+    public void setUpdatedBy(User updatedBy) {
+        this.updatedBy = updatedBy;
+    }
+
+    public int getApproved() {
+        return approved;
+    }
+
+    public void setApproved(int approved) {
+        this.approved = approved;
+    }
+
+    public int getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(int deleted) {
+        this.deleted = deleted;
+    }
+
     @Override
     public String toString() {
         return "Recipe{" +
@@ -173,13 +217,17 @@ public class Recipe {
                 ", videoLink='" + videoLink + '\'' +
                 ", cookingTime=" + cookingTime +
                 ", avgRating=" + avgRating +
-                ", dishType=" + dishType +
-                ", mealType=" + mealType +
+                ", dishType='" + dishType + '\'' +
+                ", mealType='" + mealType + '\'' +
                 ", ingredientsList='" + ingredientsList + '\'' +
                 ", serves=" + serves +
                 ", imageUrl='" + imageUrl + '\'' +
                 ", recipeIngredients=" + recipeIngredients +
                 ", ingredientPattern='" + ingredientPattern + '\'' +
+                ", createdBy=" + createdBy +
+                ", updatedBy=" + updatedBy +
+                ", approved=" + approved +
+                ", deleted=" + deleted +
                 '}';
     }
 }
