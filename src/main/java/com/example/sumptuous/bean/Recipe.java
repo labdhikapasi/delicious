@@ -56,10 +56,12 @@ public class Recipe {
     @Column(name = "ingredient_pattern")
     private String ingredientPattern;
 
+    @JsonIgnoreProperties("createdRecipes")
     @ManyToOne
     @JoinColumn(name = "created_by", referencedColumnName = "id", nullable = false)
     private User createdBy;
 
+    @JsonIgnoreProperties("updatedRecipes")
     @ManyToOne
     @JoinColumn(name = "update_by", referencedColumnName = "id")
     private User updatedBy;

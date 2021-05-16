@@ -16,7 +16,7 @@ import static org.mockito.Mockito.when;
 
 @SpringBootTest
 @RunWith(MockitoJUnitRunner.class)
-public class SumptuousApplicationTests {
+public class LoginControllerTest {
 
     @Mock
     private LoginService loginService;

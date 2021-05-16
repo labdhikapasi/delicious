@@ -1,6 +1,7 @@
 package com.example.sumptuous.bean;
 
 import com.example.sumptuous.enums.Role;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import java.util.List;
@@ -35,13 +36,28 @@ public class User {
     @Column(name = "role")
     private Role role;
 
+    @JsonIgnoreProperties("createdBy")
     @OneToMany(mappedBy = "createdBy")
     private List<Recipe> createdRecipes;
 
+    @JsonIgnoreProperties("updatedBy")
     @OneToMany(mappedBy = "updatedBy")
     private List<Recipe> updatedRecipes;
 
     public User() {
+    }
+
+    public User(long id, String firstName, String middleName, String lastName, int mobileNumber, String emailId, String password, Role role, List<Recipe> createdRecipes, List<Recipe> updatedRecipes) {
+        this.id = id;
+        this.firstName = firstName;
+        this.middleName = middleName;
+        this.lastName = lastName;
+        this.mobileNumber = mobileNumber;
+        this.emailId = emailId;
+        this.password = password;
+        this.role = role;
+        this.createdRecipes = createdRecipes;
+        this.updatedRecipes = updatedRecipes;
     }
 
     public long getId() {
@@ -124,6 +140,7 @@ public class User {
     public void setUpdatedRecipes(List<Recipe> updatedRecipes) {
         this.updatedRecipes = updatedRecipes;
     }
+
 
     @Override
     public String toString() {

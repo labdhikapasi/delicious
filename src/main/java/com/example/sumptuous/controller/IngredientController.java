@@ -1,8 +1,9 @@
 package com.example.sumptuous.controller;
 
-import com.example.sumptuous.bean.Ingredient;
 import com.example.sumptuous.dto.IngredientDto;
 import com.example.sumptuous.service.IngredientService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,7 +12,7 @@ import java.util.List;
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
 public class IngredientController {
-
+    private static final Logger logger = LogManager.getLogger(IngredientController.class);
     @Autowired
     private IngredientService ingredientService;
 
@@ -21,16 +22,25 @@ public class IngredientController {
     }*/
     @GetMapping("/ingredient")
     public Boolean checkIngredientByName(@RequestParam String name){
-        return ingredientService.checkIngredientByName(name);
+        logger.info("[checkIngredientByName] argument : name : "+name);
+        Boolean bool = ingredientService.checkIngredientByName(name);
+        logger.info("[checkIngredientByName] response : bool : "+bool);
+        return bool;
     }
     @GetMapping("/ingredients")
     public List<IngredientDto> getIngredients(){
-        return ingredientService.getIngredients();
+        logger.info("[getIngredients]");
+        List<IngredientDto> ingredientDtos = ingredientService.getIngredients();
+        logger.info("[getIngredients] response : ingredientDtos : "+ingredientDtos.toString());
+        return ingredientDtos;
     }
 
     @PostMapping("/ingredient")
     public IngredientDto addIngredient(@RequestBody IngredientDto ingredientDto){
-        return ingredientService.addIngredient(ingredientDto);
+        logger.info("[addIngredient] argument : ingredientDto : "+ingredientDto.toString());
+        IngredientDto ingredientDto1 = ingredientService.addIngredient(ingredientDto);
+        logger.info("[addIngredient] response : ingredientDto1 : "+ingredientDto1.toString());
+        return ingredientDto1;
     }
 
 }
