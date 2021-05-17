@@ -1,4 +1,4 @@
-package com.example.sumptuous;
+package com.example.sumptuous.controller;
 
 import com.example.sumptuous.bean.User;
 import com.example.sumptuous.controller.LoginController;

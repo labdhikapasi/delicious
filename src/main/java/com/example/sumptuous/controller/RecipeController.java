@@ -5,8 +5,8 @@ import com.example.sumptuous.dto.RecipeRequestDto;
 import com.example.sumptuous.dto.RecipeRequestUserDto;
 import com.example.sumptuous.dto.RecipeResponseUserDto;
 import com.example.sumptuous.service.RecipeService;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,7 +15,7 @@ import java.util.List;
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
 public class RecipeController {
-    private static final Logger logger = LogManager.getLogger(RecipeController.class);
+    private static final Logger logger = LoggerFactory.getLogger(RecipeController.class);
     @Autowired
     private RecipeService recipeService;
 
@@ -66,4 +66,6 @@ public class RecipeController {
         logger.info("[rejectRecipe] response : bool : "+bool);
         return bool;
     }
+
+
 }
