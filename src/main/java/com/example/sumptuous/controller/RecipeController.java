@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@CrossOrigin
+@CrossOrigin(origins="*")
 public class RecipeController {
     private static final Logger logger = LoggerFactory.getLogger(RecipeController.class);
     @Autowired
