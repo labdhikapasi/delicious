@@ -210,7 +210,7 @@ public class Recipe {
         this.deleted = deleted;
     }
 
-    @Override
+    /*@Override
     public String toString() {
         return "Recipe{" +
                 "id=" + id +
@@ -231,5 +231,5 @@ public class Recipe {
                 ", approved=" + approved +
                 ", deleted=" + deleted +
                 '}';
-    }
+    }*/
 }
