@@ -8,6 +8,8 @@ import com.example.sumptuous.dao.RecipeIngredientRepository;
 import com.example.sumptuous.dao.RecipeRepository;
 import com.example.sumptuous.dao.UserRepository;
 import com.example.sumptuous.dto.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +17,7 @@ import java.util.*;
 
 @Service
 public class RecipeService {
+    private static final Logger logger = LoggerFactory.getLogger(RecipeService.class);
 
     @Autowired
     private RecipeRepository recipeRepository;
@@ -26,6 +29,7 @@ public class RecipeService {
     private UserRepository userRepository;
 
     public RecipeResponseUserDto searchRecipes(RecipeRequestUserDto recipeRequestUserDto){
+        logger.info("[searchRecipes] argument : recipeRequestUserDto : "+recipeRequestUserDto.toString());
         RecipeResponseUserDto recipeResponseUserDto = new RecipeResponseUserDto();
         String dishType = recipeRequestUserDto.getDishType();
         String mealType = recipeRequestUserDto.getMealType();
@@ -93,11 +97,12 @@ public class RecipeService {
 
         //System.out.println("directions ----- "+recipes.get(0).getDirections());
 
-
+        logger.info("[searchRecipes] response : recipeResponseUserDto : "+recipeResponseUserDto.toString());
         return recipeResponseUserDto;
     }
 
     public RecipeDto addRecipe(RecipeRequestDto recipeRequestDto){
+        logger.info("[addRecipe] argument : recipeRequestDto : "+recipeRequestDto.toString());
         Optional<User> optionalUser = userRepository.findById(recipeRequestDto.getUserId());
         User user = optionalUser.get();
         Recipe recipe = DtoConversion.recipeRequestDtoToRecipe(recipeRequestDto);
@@ -128,10 +133,13 @@ public class RecipeService {
         recipe.setIngredientPattern(makeIngredientsPattern(ingredients));
 
         recipeRepository.save(recipe);
-        return DtoConversion.convertRecipeToRecipeDto(recipe);
+        RecipeDto recipeDto = DtoConversion.convertRecipeToRecipeDto(recipe);
+        logger.info("[addRecipe] response : recipeDto : "+recipeDto.toString());
+        return recipeDto;
     }
 
     public String makeIngredientsPattern(List<Ingredient> ingredients){
+        logger.info("[makeIngredientsPattern] argument : ingredients : "+ingredients.toString());
         List<Long> ids = new ArrayList<>();
         for(Ingredient ingredient : ingredients){
             ids.add(ingredient.getId());
@@ -144,58 +152,71 @@ public class RecipeService {
             sb.append("|");
         }
         System.out.println("ingredient pattern "+sb.toString());
+        logger.info("[searchIngredients] response : ingredients : "+ingredients.toString());
         return sb.toString();
     }
 
     public Boolean findRecipeByName(String name){
         Recipe recipe = recipeRepository.findByName(name);
         if(recipe != null){
+            logger.info("[makeIngredientsPattern] response : bool : "+true);
             return true;
         }
         else{
+            logger.info("[makeIngredientsPattern] response : bool : "+false);
             return false;
         }
     }
 
     public Boolean approveRecipe(Long id){
+        logger.info("[approveRecipe] argument : id : "+id);
         Optional<Recipe> optionalRecipe = recipeRepository.findById(id);
         Recipe recipe = optionalRecipe.get();
         if(recipe != null){
             recipe.setApproved(1);
             recipeRepository.save(recipe);
+            logger.info("[approveRecipe] response : bool : "+true);
             return true;
         }else{
+            logger.info("[approveRecipe] response : bool : "+false);
             return false;
         }
     }
 
     public Boolean rejectRecipe(Long id){
+        logger.info("[rejectRecipe] argument : id : "+id);
         Optional<Recipe> optionalRecipe = recipeRepository.findById(id);
         Recipe recipe = optionalRecipe.get();
         if(recipe != null){
             recipe.setApproved(0);
             recipe.setDeleted(1);
             recipeRepository.save(recipe);
+            logger.info("[rejectRecipe] response : bool : "+true);
             return true;
         }else{
+            logger.info("[rejectRecipe] response : bool : "+false);
             return false;
         }
     }
 
     public List<RecipeDto> getUnApprovedRecipes(){
+        logger.info("[getUnApprovedRecipes]");
         List<RecipeDto> recipeDtos = new ArrayList<>();
         List<Recipe> recipes = recipeRepository.findByApprovedAndDeleted(0,0);
         for(Recipe recipe : recipes){
             recipeDtos.add(DtoConversion.convertRecipeToRecipeDto(recipe));
         }
+        logger.info("[getUnApprovedRecipes] response : recipeDtos : "+recipeDtos.toString());
         return recipeDtos;
     }
     public List<RecipeDto> getRecipesByDishType(String dishType){
+        logger.info("[getRecipesByDishType] argument : dishType : "+dishType);
         List<RecipeDto> recipeDtos = new ArrayList<>();
         List<Recipe> recipes = recipeRepository.findByDishTypeAndApprovedAndDeleted(dishType,1,0);
         for(Recipe recipe : recipes){
             recipeDtos.add(DtoConversion.convertRecipeToRecipeDto(recipe));
         }
+        logger.info("[getRecipesByDishType] response : recipeDtos : "+recipeDtos.toString());
         return recipeDtos;
     }
 

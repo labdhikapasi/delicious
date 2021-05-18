@@ -22,7 +22,7 @@ public class LoginController {
     @PostMapping("/register")
 //    public String verifyEmail(@RequestBody Associates associates) {
     public User registerUser(@RequestBody User user) {
-        logger.info("[registerUser] argument : user : "+user.toString());
+        logger.info("[registerUser] argument : user emailId : "+user.getEmailId());
         User userResponse = loginService.registerUser(user);
         logger.info("[registerUser] response : userResponse : "+userResponse.toString());
         return userResponse;
@@ -30,9 +30,9 @@ public class LoginController {
 
     @PostMapping("/login")
     public User loginUser(@RequestBody User user){
-        //logger.info("[loginUser] argument : user : "+user.toString());
+        logger.info("[loginUser] argument : user emailId : "+user.getEmailId());
         User userResponse = loginService.loginUser(user);
-        //logger.info("[loginUser] response : userResponse : "+userResponse.toString());
+        logger.info("[loginUser] response : userResponse : "+userResponse.toString());
         return userResponse;
     }
 }
