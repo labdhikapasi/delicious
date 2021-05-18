@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin
 public class IngredientController {
     private static final Logger logger = LoggerFactory.getLogger(IngredientController.class);
     @Autowired
