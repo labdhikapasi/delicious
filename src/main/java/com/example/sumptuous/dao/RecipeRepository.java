@@ -12,6 +12,7 @@ public interface RecipeRepository extends JpaRepository<Recipe, Long> {
     List<Recipe> findByIngredientPattern(String ingredientPattern);
     Recipe findByName(String name);
     List<Recipe> findByApprovedAndDeleted(int approved, int deleted);
+    List<Recipe> findByDishTypeAndApprovedAndDeleted(String dishType, int approved, int deleted);
     @Query("select r from Recipe r where r.ingredientPattern = :ingredientPattern and r.mealType like %:mealType and r.dishType like %:dishType and approved=1 and deleted=0")
     List<Recipe> searchByIngredientPatternAndMealTypeAndDishType(@Param("ingredientPattern") String ingredientPattern, @Param("mealType") String mealType, @Param("dishType") String dishType);
 

@@ -66,6 +66,13 @@ public class RecipeController {
         logger.info("[rejectRecipe] response : bool : "+bool);
         return bool;
     }
+    @GetMapping("/getRecipesByDishType")
+    public List<RecipeDto> getRecipesByDishType(@RequestParam String dishType){
+        logger.info("[getRecipesByDishType] argument : dishType : "+dishType);
+        List<RecipeDto> recipeDtos = recipeService.getRecipesByDishType(dishType);
+        logger.info("[getRecipesByDishType] response : recipeDtos : "+recipeDtos.toString());
+        return recipeDtos;
+    }
 
 
 }

@@ -190,4 +190,13 @@ public class RecipeService {
         }
         return recipeDtos;
     }
+    public List<RecipeDto> getRecipesByDishType(String dishType){
+        List<RecipeDto> recipeDtos = new ArrayList<>();
+        List<Recipe> recipes = recipeRepository.findByDishTypeAndApprovedAndDeleted(dishType,1,0);
+        for(Recipe recipe : recipes){
+            recipeDtos.add(DtoConversion.convertRecipeToRecipeDto(recipe));
+        }
+        return recipeDtos;
+    }
+
 }
